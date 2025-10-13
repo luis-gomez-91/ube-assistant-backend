@@ -13,6 +13,9 @@ class SimpleUser:
     def is_authenticated(self):
         return True
 
+    def __str__(self):
+        return self.username
+
 class BackendTokenAuthentication(BaseAuthentication):
     def authenticate(self, request):
         token = request.headers.get("Authorization") or request.META.get("HTTP_AUTHORIZATION")
