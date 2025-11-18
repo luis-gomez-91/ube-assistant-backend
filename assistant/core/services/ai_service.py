@@ -1,6 +1,6 @@
 from argo.client import stream
 from asgiref.sync import sync_to_async
-from core.agents.ventas_agent import initialize_agent
+from core.agents.ventas_agent_argo import initialize_agent
 from core.models import ChatHistory
 
 agent = initialize_agent()

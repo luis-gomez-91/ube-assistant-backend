@@ -178,3 +178,32 @@ API_UBE_URL = os.getenv("API_UBE_URL")
 #     ],
 # }
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    },
+    'loggers': {
+        'core.authentication': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    },
+}
+
+os.environ.setdefault('NEXT_PUBLIC_SUPABASE_URL', 'https://ystetegmatjetchztrfx.supabase.co')
+os.environ.setdefault('NEXT_PUBLIC_SUPABASE_ANON_KEY', os.getenv('NEXT_PUBLIC_SUPABASE_ANON_KEY'))
+
+# O si lo prefieres, directamente:
+if not os.getenv('NEXT_PUBLIC_SUPABASE_ANON_KEY'):
+    raise ValueError("NEXT_PUBLIC_SUPABASE_ANON_KEY no está configurada en el .env")
+
+UBE_PROVIDER_ID = 2
