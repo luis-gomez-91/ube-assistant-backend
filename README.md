@@ -115,6 +115,8 @@ El servidor queda en **http://127.0.0.1:8000/**.
 | `/chat/` | POST | Enviar mensaje al chatbot (body: `message`, `provider`, `chat_id` opcional). |
 | `/chat/history/` | GET | Historial de chats. |
 | `/chat/<id>/cleanup/` | POST | Limpiar contexto de un chat. |
+| `/swagger/` | GET | Documentación interactiva de la API (estilo FastAPI). |
+| `/redoc/` | GET | Documentación ReDoc de la API. |
 | `/admin/` | GET | Panel de administración Django. |
 
 ---
