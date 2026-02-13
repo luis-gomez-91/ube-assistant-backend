@@ -10,6 +10,7 @@ from core.views.profile import ProfileView
 from core.views.chat import ChatView
 from core.views import HomeView
 
+# Documentación pública: sin autenticación para que Swagger/ReDoc no pidan login en producción
 schema_view = get_schema_view(
     openapi.Info(
         title="UBE Assistant API",
@@ -18,6 +19,7 @@ schema_view = get_schema_view(
     ),
     public=True,
     permission_classes=(permissions.AllowAny,),
+    authentication_classes=(),  # Sin auth: no redirige a login
 )
 
 urlpatterns = [
