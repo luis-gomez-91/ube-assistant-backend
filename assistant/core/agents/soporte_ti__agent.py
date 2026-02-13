@@ -1,12 +1,14 @@
 from core.agents.ventas_agent import memoria_manager
 from core.services.faq_service import fetch_verify, password_recovery
 from schemas.faq import VerifyModel, PasswordRecoveryModel
-from langchain.agents import tool
-from langchain.agents import AgentExecutor, create_openai_functions_agent
-from langchain import hub
+from langchain_core.tools import tool
+from langchain_classic.agents import AgentExecutor, create_openai_functions_agent
+from langchain_classic import hub
 from langchain_google_genai import ChatGoogleGenerativeAI
 from assistant.settings import GEMINI_API_KEY
 import logging
+
+from core.utils.gemini_client import get_gemini_client_args
 
 
 logger = logging.getLogger(__name__)
@@ -101,6 +103,7 @@ def get_soporte_ti_agent(chat_id: int, token: str):
         model="gemini-2.0-flash",
         google_api_key=GEMINI_API_KEY,
         temperature=0.1,
+        client_args=get_gemini_client_args(),
     )
 
     system_prompt_template = f"""

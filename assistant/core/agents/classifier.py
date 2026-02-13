@@ -1,6 +1,7 @@
 from langchain_google_genai import ChatGoogleGenerativeAI
 
 from assistant.settings import UBE_PROVIDER_ID
+from core.utils.gemini_client import get_gemini_client_args
 from core.agents.chat_agent import get_chat_agent
 from core.agents.faq_agent import get_faq_agent
 from core.agents.public_agent import get_public_agent
@@ -21,6 +22,7 @@ async def classify_query(user_message: str) -> str:
         model="gemini-2.0-flash",
         google_api_key=GEMINI_API_KEY,
         temperature=0.1,
+        client_args=get_gemini_client_args(),
     )
 
     prompt = f"""
@@ -77,6 +79,15 @@ async def route_message(
 
         return category, ai_response
 
+    except RuntimeError as e:
+        if "shutdown" in str(e).lower() or "cannot schedule new futures" in str(e):
+            logger.warning(f"Servidor recargado durante la petición: {e}")
+            return "error", "El servidor se reinició. Por favor envía el mensaje de nuevo."
+        raise
     except Exception as e:
+        err_msg = str(e).lower()
+        if "429" in err_msg or "quota" in err_msg or "resource_exhausted" in err_msg:
+            logger.warning(f"Cuota Gemini agotada: {e}")
+            return "error", "Límite de uso de la IA alcanzado. Espera unos minutos o revisa tu plan en Google AI Studio."
         logger.error(f"Error en route_message: {e}", exc_info=True)
         return "error", "Ocurrió un error. Intenta de nuevo."

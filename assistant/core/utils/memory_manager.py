@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from langchain.memory import ConversationBufferMemory
+from langchain_classic.memory import ConversationBufferMemory
 from threading import Lock
 import logging
 

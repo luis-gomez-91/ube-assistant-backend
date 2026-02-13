@@ -82,11 +82,11 @@ WSGI_APPLICATION = 'assistant.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "postgres",
-        "USER": "postgres.ystetegmatjetchztrfx",
-        "PASSWORD": "Lu1sg4m2z2o2o$",
-        "HOST": "aws-1-us-east-2.pooler.supabase.com",
-        "PORT": "6543",
+        "NAME": "railway",
+        "USER": "postgres",
+        "PASSWORD": "sZpCKdtQPPKxEypWHDKRMylArxPjdBag",
+        "HOST": "yamanote.proxy.rlwy.net",
+        "PORT": "19861",
     }
 }
 
@@ -167,6 +167,8 @@ EXTERNAL_DJANGO_URL = "https://sga.ube.edu.ec"
 SUPABASE_URL = "https://xyzcompany.supabase.co"
 SUPABASE_KEY = "super_secret_key"
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+# Desactivar verificación SSL para Gemini (útil detrás de proxy corporativo con cert autofirmado)
+GEMINI_DISABLE_SSL_VERIFY = os.getenv("GEMINI_DISABLE_SSL_VERIFY", "false").lower() in ("1", "true", "yes")
 API_UBE_URL = os.getenv("API_UBE_URL")
 
 

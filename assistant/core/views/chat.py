@@ -66,6 +66,8 @@ class ChatView(APIView):
         #     "respuesta": ai_response
         # })
 
+        print(ai_response)
+
         return Response({
             "chat_id": chat.id,
             "category": category,

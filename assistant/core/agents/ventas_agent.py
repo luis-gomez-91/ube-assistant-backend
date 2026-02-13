@@ -1,6 +1,6 @@
 from typing import List
 
-from langchain.agents import tool
+from langchain_core.tools import tool
 from core.services.ventas_service import fetch_grupos, fetch_malla, fetch_detalle_carrera
 from core.utils.carreras_manager import CarrerasManager
 from core.utils.memory_manager import memoria_manager
@@ -476,10 +476,11 @@ system_prompt_template = """
 
 def get_ventas_agent(chat_id: int):
     """Crea agente con memoria persistente por chat_id"""
-    from langchain.agents import AgentExecutor, create_openai_functions_agent
-    from langchain import hub
+    from langchain_classic.agents import AgentExecutor, create_openai_functions_agent
+    from langchain_classic import hub
     from langchain_google_genai import ChatGoogleGenerativeAI
     from assistant.settings import GEMINI_API_KEY
+    from core.utils.gemini_client import get_gemini_client_args
 
     # ✅ Validaciones
     if not isinstance(chat_id, int) or chat_id <= 0:
@@ -492,6 +493,7 @@ def get_ventas_agent(chat_id: int):
         model="gemini-2.0-flash",
         google_api_key=GEMINI_API_KEY,
         temperature=0.1,
+        client_args=get_gemini_client_args(),
     )
 
     # Prompt

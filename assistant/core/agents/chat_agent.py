@@ -1,10 +1,11 @@
-from langchain.agents import tool
-from langchain.agents import AgentExecutor, create_openai_functions_agent
-from langchain import hub
+from langchain_core.tools import tool
+from langchain_classic.agents import AgentExecutor, create_openai_functions_agent
+from langchain_classic import hub
 from langchain_google_genai import ChatGoogleGenerativeAI
 from assistant.settings import GEMINI_API_KEY
 import logging
 
+from core.utils.gemini_client import get_gemini_client_args
 from core.utils.memory_manager import memoria_manager
 
 logger = logging.getLogger(__name__)
@@ -36,6 +37,7 @@ def get_chat_agent(chat_id: int):
         model="gemini-2.0-flash",
         google_api_key=GEMINI_API_KEY,
         temperature=0.1,
+        client_args=get_gemini_client_args(),
     )
 
     system_prompt_template = f"""
